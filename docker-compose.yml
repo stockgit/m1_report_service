@@ -1,12 +1,17 @@
-version: '3.8'
 services:
-  api-demo:
+  discovery-service:
     build:
       context: ./
       dockerfile: Dockerfile
     restart: always
     ports:
       # Access http://localhost/
-      - 8072:8072
+      - 8081:8081
     environment:
       SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - microservice_network
+networks:
+  microservice_network:
+    name: microservice_network
+    driver: bridge
