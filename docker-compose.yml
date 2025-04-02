@@ -1,22 +1,16 @@
 services:
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
+  report-service:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
     ports:
-      - 5672:5672
-      - 15672:15672
-    volumes:
-      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+      # Access http://localhost/
+      - 8081:8081
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
     networks:
       - microservice_network
-  zipkin:
-    container_name: zipkin
-    image: openzipkin/zipkin
-    extra_hosts: [ 'host.docker.internal:host-gateway' ]
-    ports:
-      - "9411:9411"
-
 networks:
   microservice_network:
     name: microservice_network
