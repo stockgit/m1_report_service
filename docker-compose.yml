@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  api-demo:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      # Access http://localhost/
+      - 8072:8072
+    environment:
+      SPRING_PROFILES_ACTIVE: docker

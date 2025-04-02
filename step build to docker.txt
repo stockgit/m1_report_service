@@ -1,0 +1,28 @@
+Step 1: Create Two Spring Boot Projects
+
+Step 2: Set Up report-service
+
+Step 4: Build Docker Images
+
+open cmd and goto project path
+D:\NewExample\Spring Microservice Example\mewv2 microservice\report-service
+
+For employee-service:
+    mvn clean package
+    docker build -t report-service .
+
+Put to dicker hub
+create repository at https://hub.docker.com/repositories/satibn
+reference: https://blog.tichaky.com/add-docker-image-to-docker-hub/
+    docker login
+    docker tag report-service:latest satibn/my_repositories:report-service
+    docker images
+    docker push satibn/my_repositories:report-service
+
+Step 5: Create a Docker Network
+    docker network create microservices-net
+
+Step 6: Run the Microservices
+    docker run -e "SPRING_PROFILES_ACTIVE=docker" -d --net microservices-net --name report-service -p 8072:8072 report-service
+
+Step 7: Test the Microservices
